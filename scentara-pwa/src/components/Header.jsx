@@ -27,8 +27,6 @@ export default function Header() {
 
   return (
     <>
-      <div className="topbar">Katalog parfum dan notes aroma. Data diambil dari situs resmi brand.</div>
-
       <header className="header">
         <div className="header__row">
           <Link to="/" className="header__logo" aria-label="Scentara, ke beranda">

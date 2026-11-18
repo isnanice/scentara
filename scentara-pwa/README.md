@@ -10,7 +10,7 @@ Struktur:
 
 ```
 public/
-  brand/                 file logo asli (scentara-logo-gelap.svg, scentara-logo-transparan.svg)
+  brand/              
   logo-*.svg             logo turunan untuk header, footer, dan halaman Tentang
   favicon.svg, icon-*.png  favicon dan ikon PWA (192, 512, maskable)
 src/
