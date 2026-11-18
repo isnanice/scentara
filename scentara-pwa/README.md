@@ -6,7 +6,7 @@ cp .env.example .env   # isi VITE_API_BASE_URL
 npm run dev
 ```
 
-Struktur (mengikuti pola praktikum PWA II):
+Struktur:
 
 ```
 public/

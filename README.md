@@ -47,12 +47,4 @@ Skema database dan data awal (SQL) dikirim terpisah di chat. Jalankan di Supabas
 | GET | `/api/brands` | Daftar brand |
 | GET | `/api/scent-profiles` | Profil aroma beserta jumlah parfum |
 
-## Pemenuhan ketentuan Tugas Akhir
 
-- Individu, platform PWA (JavaScript).
-- Memakai API (web service) buatan sendiri.
-- Bottom Navigation Bar (tampil di semua ukuran layar): Beranda, Katalog, Notes, Favorit, Tentang.
-- 9 halaman: Beranda, Katalog, Detail Parfum, Per Brand, Per Profil Aroma, Notes, Detail Note, Favorit, Tentang.
-- 2 halaman utama berisi list yang itemnya bisa diklik ke detail: Katalog (ke Detail Parfum) dan Notes (ke Detail Note).
-- 1 halaman Profile/About: Tentang.
-- Siap diunggah ke GitHub dan di-deploy di free hosting (Vercel).
