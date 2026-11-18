@@ -1,5 +1,4 @@
 import { ExternalLink } from 'lucide-react'
-import { PROFILE } from '../data/profile'
 
 const SOURCES = [
   { name: 'Alchemist Fragrance', url: 'https://alchemistfragrance.com' },
@@ -15,34 +14,23 @@ export default function AboutPage() {
         <img src="/logo-on-light.svg" alt="Scentara" className="about-logo" width="236" height="131" />
         <h1>Tentang Scentara</h1>
         <p className="lede">
-          Scentara adalah katalog parfum yang menampilkan notes aroma dalam bentuk piramida, supaya
-          mudah membandingkan parfum dari beberapa brand.
+          Scentara adalah katalog parfum lokal Indonesia yang menampilkan notes aroma dalam bentuk
+          piramida olfaktif — memudahkanmu menjelajahi dan membandingkan karakter wangi dari berbagai brand.
         </p>
       </div>
 
-      <section className="about-card about-card--profile">
-        <h2>Pembuat</h2>
-        <dl className="about-list">
-          <div>
-            <dt>Nama</dt>
-            <dd>{PROFILE.name}</dd>
-          </div>
-          <div>
-            <dt>NIM</dt>
-            <dd>{PROFILE.nim}</dd>
-          </div>
-          <div>
-            <dt>Program studi</dt>
-            <dd>{PROFILE.major}</dd>
-          </div>
-          <div>
-            <dt>Mata kuliah</dt>
-            <dd>{PROFILE.course}</dd>
-          </div>
-        </dl>
-        <a className="btn btn--ghost" href={PROFILE.github} target="_blank" rel="noreferrer">
-          Source code di GitHub <ExternalLink size={16} />
-        </a>
+      <section className="about-card">
+        <h2>Apa itu Scentara?</h2>
+        <p>
+          Scentara hadir untuk membantu pecinta parfum menemukan wangi yang cocok. Lewat katalog
+          interaktif, kamu bisa melihat komposisi notes (top, middle, base), membandingkan profil
+          aroma antar parfum, dan menyimpan favorit — semua dalam satu tempat.
+        </p>
+        <p>
+          Scentara bukan toko online dan tidak menjual parfum. Scentara juga tidak berafiliasi dengan
+          brand mana pun. Nama brand, merek dagang, dan foto produk adalah milik pemiliknya
+          masing-masing dan hanya digunakan untuk keperluan identifikasi produk.
+        </p>
       </section>
 
       <section className="about-card">
@@ -66,8 +54,8 @@ export default function AboutPage() {
       <section className="about-card">
         <h2>Teknologi</h2>
         <p>
-          React dan Vite untuk antarmuka, React Router untuk navigasi, Axios untuk memanggil API,
-          dan vite-plugin-pwa untuk service worker serta manifest. Data disediakan oleh REST API
+          Dibangun dengan React dan Vite untuk antarmuka yang cepat, React Router untuk navigasi,
+          serta PWA-ready sehingga bisa diakses secara offline. Data disediakan oleh REST API
           Express dengan database Supabase (PostgreSQL).
         </p>
       </section>
