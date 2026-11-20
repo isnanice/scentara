@@ -15,9 +15,9 @@ export default function PerfumeCard({ perfume, layer }) {
         <p className="p-card__brand">{perfume.brands?.name}</p>
         <h3 className="p-card__name">{perfume.name}</h3>
         <p className="p-card__meta">{perfume.concentration}</p>
-        {perfume.scent_profiles?.length > 0 && (
-          <p className="p-card__scents">{perfume.scent_profiles.join(', ')}</p>
-        )}
+        <p className="p-card__scents">
+          {perfume.scent_profiles?.length > 0 ? perfume.scent_profiles.join(', ') : '\u00A0'}
+        </p>
         {layer && <span className="layer-tag">{layer} note</span>}
         <p className="p-card__price">{formatRupiah(perfume.price)}</p>
 
