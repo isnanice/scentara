@@ -110,17 +110,27 @@ export default function HomePage() {
         <div className="section__head">
           <h2 className="section__title">Koleksi parfum</h2>
           <Link to="/katalog" className="text-link">
-            Katalog lengkap
+            {perfumes.length > 5 ? `Lihat semua (${perfumes.length})` : 'Katalog lengkap'}
           </Link>
         </div>
         {perfumesLoading && perfumes.length === 0 && <LoadingState />}
         {perfumesError && <ErrorState message={perfumesError} onRetry={refetchPerfumes} />}
         {perfumes.length > 0 && (
-          <ul className="card-grid">
-            {perfumes.slice(0, 4).map((perfume) => (
-              <PerfumeCard key={perfume.id} perfume={perfume} />
-            ))}
-          </ul>
+          <>
+            <ul className="card-grid card-grid--home">
+              {perfumes.slice(0, 5).map((perfume) => (
+                <PerfumeCard key={perfume.id} perfume={perfume} />
+              ))}
+            </ul>
+
+            {perfumes.length > 5 && (
+              <div className="section__foot">
+                <Link to="/katalog" className="btn btn--ghost btn--more">
+                  Lihat {perfumes.length - 5} parfum lainnya di katalog &rarr;
+                </Link>
+              </div>
+            )}
+          </>
         )}
       </section>
     </>
