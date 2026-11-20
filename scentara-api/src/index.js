@@ -5,6 +5,7 @@ import perfumeRoutes from "./routes/perfumeRoutes.js";
 import noteRoutes from "./routes/noteRoutes.js";
 import brandRoutes from "./routes/brandRoutes.js";
 import scentProfileRoutes from "./routes/scentProfileRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
 
 dotenv.config();
 
@@ -23,6 +24,10 @@ app.get("/", (req, res) => {
       "GET /api/notes/:id",
       "GET /api/brands",
       "GET /api/scent-profiles",
+      "GET /api/perfumes/:id/reviews",
+      "POST /api/perfumes/:id/reviews",
+      "PUT /api/reviews/:id",
+      "DELETE /api/reviews/:id",
     ],
   });
 });
@@ -31,6 +36,7 @@ app.use("/api/perfumes", perfumeRoutes);
 app.use("/api/notes", noteRoutes);
 app.use("/api/brands", brandRoutes);
 app.use("/api/scent-profiles", scentProfileRoutes);
+app.use("/api", reviewRoutes);
 
 // Di Vercel, server dijalankan oleh platform sehingga tidak perlu listen().
 if (!process.env.VERCEL) {

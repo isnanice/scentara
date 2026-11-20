@@ -3,6 +3,7 @@ import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { usePerfumeById } from '../hooks/usePerfumes'
 import FavoriteButton from '../components/common/FavoriteButton.jsx'
 import NotePyramid from '../components/perfume/NotePyramid.jsx'
+import ReviewSection from '../components/review/ReviewSection.jsx'
 import ImageWithFallback from '../components/common/ImageWithFallback.jsx'
 import { LoadingState, ErrorState } from '../components/common/StateBox.jsx'
 import { formatRupiah } from '../utils/helpers'
@@ -71,6 +72,8 @@ export default function PerfumeDetailPage() {
             <p className="section__sub">Ketuk salah satu note untuk melihat parfum lain yang memakainya.</p>
             <NotePyramid notes={perfume.notes} />
           </section>
+
+          <ReviewSection perfumeId={perfume.id} />
 
           <p className="page-foot">
             Data notes dan harga diambil dari halaman produk brand dan bisa berubah sewaktu-waktu.

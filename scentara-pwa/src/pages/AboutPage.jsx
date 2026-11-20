@@ -1,4 +1,5 @@
 import { ExternalLink } from 'lucide-react'
+import { PROFILE } from '../data/profile'
 
 const SOURCES = [
   { name: 'Alchemist Fragrance', url: 'https://alchemistfragrance.com' },
@@ -15,7 +16,7 @@ export default function AboutPage() {
         <h1>Tentang Scentara</h1>
         <p className="lede">
           Scentara adalah katalog parfum lokal Indonesia yang menampilkan notes aroma dalam bentuk
-          piramida olfaktif — memudahkanmu menjelajahi dan membandingkan karakter wangi dari berbagai brand.
+          piramida olfaktif, memudahkanmu menjelajahi dan membandingkan karakter wangi dari berbagai brand.
         </p>
       </div>
 
@@ -24,13 +25,38 @@ export default function AboutPage() {
         <p>
           Scentara hadir untuk membantu pecinta parfum menemukan wangi yang cocok. Lewat katalog
           interaktif, kamu bisa melihat komposisi notes (top, middle, base), membandingkan profil
-          aroma antar parfum, dan menyimpan favorit — semua dalam satu tempat.
+          aroma antar parfum, dan menyimpan favorit semua dalam satu tempat.
         </p>
         <p>
           Scentara bukan toko online dan tidak menjual parfum. Scentara juga tidak berafiliasi dengan
           brand mana pun. Nama brand, merek dagang, dan foto produk adalah milik pemiliknya
           masing-masing dan hanya digunakan untuk keperluan identifikasi produk.
         </p>
+      </section>
+
+      <section className="about-card about-card--profile">
+        <h2>Pembuat</h2>
+        <dl className="about-list">
+          <div>
+            <dt>Nama</dt>
+            <dd>{PROFILE.name}</dd>
+          </div>
+          <div>
+            <dt>NIM</dt>
+            <dd>{PROFILE.nim}</dd>
+          </div>
+          <div>
+            <dt>Program studi</dt>
+            <dd>{PROFILE.major}</dd>
+          </div>
+          <div>
+            <dt>Mata kuliah</dt>
+            <dd>{PROFILE.course}</dd>
+          </div>
+        </dl>
+        <a className="btn btn--ghost" href={PROFILE.github} target="_blank" rel="noreferrer">
+          Source code di GitHub <ExternalLink size={16} />
+        </a>
       </section>
 
       <section className="about-card">
