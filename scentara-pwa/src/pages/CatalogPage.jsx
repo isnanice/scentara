@@ -1,11 +1,13 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { SlidersHorizontal, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, SlidersHorizontal, X } from 'lucide-react'
 import { usePerfumes } from '../hooks/usePerfumes'
 import { useBrands, useScentProfiles } from '../hooks/useMeta'
 import PerfumeCard from '../components/perfume/PerfumeCard.jsx'
 import { LoadingState, ErrorState, EmptyState } from '../components/common/StateBox.jsx'
 import { sortPerfumes } from '../utils/helpers'
+
+const ITEMS_PER_PAGE = 9
 
 const SORT_OPTIONS = [
   { value: 'name_asc', label: 'Nama A sampai Z' },
@@ -22,6 +24,12 @@ export default function CatalogPage() {
 
   const [sortKey, setSortKey] = useState('name_asc')
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+
+  // Reset ke halaman 1 jika filter atau urutan diubah
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [brand, scent, q, sortKey])
 
   const setParam = (key, value) => {
     const next = new URLSearchParams(params)
@@ -36,6 +44,12 @@ export default function CatalogPage() {
 
   const sorted = useMemo(() => sortPerfumes(perfumes, sortKey), [perfumes, sortKey])
   const brandName = brands.find((b) => b.slug === brand)?.name ?? brand
+
+  const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE)
+  const paginatedPerfumes = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE
+    return sorted.slice(start, start + ITEMS_PER_PAGE)
+  }, [sorted, currentPage])
 
   const activeFilters = [
     brand && { key: 'brand', label: `Brand: ${brandName}` },
@@ -116,7 +130,14 @@ export default function CatalogPage() {
             </button>
 
             <p className="catalog__count" aria-live="polite">
-              {loading && perfumes.length === 0 ? 'Memuat...' : `${sorted.length} parfum`}
+              {loading && perfumes.length === 0
+                ? 'Memuat...'
+                : totalPages > 1
+                ? `Menampilkan ${(currentPage - 1) * ITEMS_PER_PAGE + 1}–${Math.min(
+                    currentPage * ITEMS_PER_PAGE,
+                    sorted.length,
+                  )} dari ${sorted.length} parfum`
+                : `${sorted.length} parfum`}
             </p>
 
             <label className="sort">
@@ -162,11 +183,60 @@ export default function CatalogPage() {
           )}
 
           {sorted.length > 0 && (
-            <ul className="card-grid">
-              {sorted.map((perfume) => (
-                <PerfumeCard key={perfume.id} perfume={perfume} />
-              ))}
-            </ul>
+            <>
+              <ul className="card-grid">
+                {paginatedPerfumes.map((perfume) => (
+                  <PerfumeCard key={perfume.id} perfume={perfume} />
+                ))}
+              </ul>
+
+              {totalPages > 1 && (
+                <nav className="pagination" aria-label="Navigasi halaman katalog">
+                  <button
+                    type="button"
+                    className="btn btn--ghost btn--small pagination__btn"
+                    disabled={currentPage === 1}
+                    onClick={() => {
+                      setCurrentPage((p) => Math.max(1, p - 1))
+                      window.scrollTo({ top: 0, behavior: 'smooth' })
+                    }}
+                    aria-label="Halaman sebelumnya"
+                  >
+                    <ChevronLeft size={16} /> Sebelumnya
+                  </button>
+
+                  <div className="pagination__pages">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <button
+                        key={page}
+                        type="button"
+                        className={`pagination__page${page === currentPage ? ' is-active' : ''}`}
+                        onClick={() => {
+                          setCurrentPage(page)
+                          window.scrollTo({ top: 0, behavior: 'smooth' })
+                        }}
+                        aria-current={page === currentPage ? 'page' : undefined}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    className="btn btn--ghost btn--small pagination__btn"
+                    disabled={currentPage === totalPages}
+                    onClick={() => {
+                      setCurrentPage((p) => Math.min(totalPages, p + 1))
+                      window.scrollTo({ top: 0, behavior: 'smooth' })
+                    }}
+                    aria-label="Halaman selanjutnya"
+                  >
+                    Selanjutnya <ChevronRight size={16} />
+                  </button>
+                </nav>
+              )}
+            </>
           )}
 
           <p className="page-foot">
