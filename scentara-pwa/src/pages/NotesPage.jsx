@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { Search, X, Sparkles } from 'lucide-react'
 import { useNotes, useNoteCategories } from '../hooks/useNotes'
-import ChipGroup from '../components/common/ChipGroup.jsx'
-import SearchBox from '../components/common/SearchBox.jsx'
+import CategoryDropdown from '../components/common/CategoryDropdown.jsx'
 import { LoadingState, ErrorState, EmptyState } from '../components/common/StateBox.jsx'
 
 export default function NotesPage() {
@@ -18,6 +18,14 @@ export default function NotesPage() {
     setParams(next, { replace: true })
   }
 
+  const handleClearAll = () => {
+    setSearch('')
+    const next = new URLSearchParams(params)
+    next.delete('category')
+    next.delete('q')
+    setParams(next, { replace: true })
+  }
+
   useEffect(() => {
     if (search === q) return
     const timer = setTimeout(() => setParam('q', search.trim()), 350)
@@ -28,37 +36,113 @@ export default function NotesPage() {
   const { categories } = useNoteCategories()
   const { notes, loading, error, refetch } = useNotes({ category, search: q })
 
+  const hasActiveFilters = Boolean(category || q)
+
   return (
-    <div>
+    <div className="notes-page">
       <div className="page-head">
-        <h1>Notes aroma</h1>
+        <span className="page-head__badge">Ensiklopedia Olfaktif</span>
+        <h1>Notes Aroma</h1>
         <p className="lede">
-          Notes adalah bahan penyusun aroma parfum. Pilih satu note untuk melihat parfum yang
-          memakainya.
+          Notes adalah bahan dan molekul esensial penyusun piramida aroma parfum. Jelajahi karakter tiap
+          bahan dan temukan parfum lokal yang menggunakannya.
         </p>
       </div>
 
-      <div className="filters">
-        <SearchBox value={search} onChange={setSearch} label="Cari nama note" placeholder="Cari nama note" />
-        <ChipGroup
-          label="Filter kategori note"
+      {/* TOOLBAR PENCARIAN MEMANJANG & DROPDOWN KATEGORI */}
+      <div className="notes-toolbar">
+        <div className="notes-search">
+          <Search size={19} className="notes-search__icon" aria-hidden="true" />
+          <input
+            type="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Cari nama note aroma (misal: Bergamot, Rose, Cedarwood, Vanilla, Musk)..."
+            aria-label="Cari nama note aroma"
+            className="notes-search__input"
+          />
+          {search && (
+            <button
+              type="button"
+              onClick={() => {
+                setSearch('')
+                setParam('q', '')
+              }}
+              className="notes-search__clear"
+              aria-label="Hapus teks pencarian"
+              title="Hapus pencarian"
+            >
+              <X size={16} />
+            </button>
+          )}
+        </div>
+
+        <CategoryDropdown
           value={category}
-          onChange={(v) => setParam('category', v)}
-          allLabel="Semua kategori"
-          options={categories.map((c) => ({ value: c.name, label: c.name }))}
+          onChange={(val) => setParam('category', val)}
+          categories={categories}
         />
       </div>
+
+      {/* FILTER AKTIF CHIPS */}
+      {hasActiveFilters && (
+        <div className="active-notes-filters">
+          <span className="active-notes-filters__label">Filter aktif:</span>
+
+          {category && (
+            <button
+              type="button"
+              className="active-filter-pill"
+              onClick={() => setParam('category', '')}
+              title="Hapus filter kategori"
+            >
+              Kategori: <strong>{category}</strong> <X size={13} />
+            </button>
+          )}
+
+          {q && (
+            <button
+              type="button"
+              className="active-filter-pill"
+              onClick={() => {
+                setSearch('')
+                setParam('q', '')
+              }}
+              title="Hapus filter pencarian"
+            >
+              Kata kunci: <strong>"{q}"</strong> <X size={13} />
+            </button>
+          )}
+
+          <button
+            type="button"
+            className="active-filter-reset"
+            onClick={handleClearAll}
+          >
+            Reset Semua
+          </button>
+        </div>
+      )}
 
       {loading && notes.length === 0 && <LoadingState text="Memuat notes..." />}
       {error && <ErrorState message={error} onRetry={refetch} />}
 
       {!loading && !error && notes.length === 0 && (
-        <EmptyState title="Note tidak ditemukan" text="Coba kata kunci lain atau ganti kategori." />
+        <EmptyState
+          title="Note tidak ditemukan"
+          text="Tidak ada note yang cocok dengan kriteria pencarian Anda. Coba kata kunci lain atau pilih Semua Kategori."
+        />
       )}
 
       {notes.length > 0 && (
         <>
-          <p className="result-count">{notes.length} notes</p>
+          <div className="notes-header-meta">
+            <p className="result-count">
+              Menampilkan <strong>{notes.length}</strong> notes aroma
+              {category && <span> dalam kategori <strong>{category}</strong></span>}
+            </p>
+          </div>
+
           <ul className="note-grid">
             {notes.map((note) => (
               <li key={note.id} className="note-card">
@@ -69,7 +153,9 @@ export default function NotesPage() {
                   </Link>
                 </h3>
                 <p className="note-card__desc">{note.description}</p>
-                <p className="note-card__count">Dipakai di {note.perfume_count} parfum</p>
+                <p className="note-card__count">
+                  <Sparkles size={13} /> Digunakan pada {note.perfume_count} parfum
+                </p>
               </li>
             ))}
           </ul>
