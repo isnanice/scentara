@@ -146,16 +146,32 @@ export default function NotesPage() {
           <ul className="note-grid">
             {notes.map((note) => (
               <li key={note.id} className="note-card">
-                <span className="chip chip--static">{note.category}</span>
-                <h3 className="note-card__name">
-                  <Link to={`/notes/${note.id}`} className="stretched-link">
-                    {note.name}
-                  </Link>
-                </h3>
-                <p className="note-card__desc">{note.description}</p>
-                <p className="note-card__count">
-                  <Sparkles size={13} /> Digunakan pada {note.perfume_count} parfum
-                </p>
+                <div className="note-card__thumb">
+                  {note.image_url ? (
+                    <img
+                      src={note.image_url}
+                      alt={note.name}
+                      className="note-card__img"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="note-card__placeholder">
+                      <span>{note.name.slice(0, 2).toUpperCase()}</span>
+                    </div>
+                  )}
+                  <span className="chip chip--static note-card__chip">{note.category}</span>
+                </div>
+                <div className="note-card__body">
+                  <h3 className="note-card__name">
+                    <Link to={`/notes/${note.id}`} className="stretched-link">
+                      {note.name}
+                    </Link>
+                  </h3>
+                  <p className="note-card__desc">{note.description}</p>
+                  <p className="note-card__count">
+                    <Sparkles size={13} /> Digunakan pada {note.perfume_count} parfum
+                  </p>
+                </div>
               </li>
             ))}
           </ul>

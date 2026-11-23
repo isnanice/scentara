@@ -27,9 +27,14 @@ export default function NoteDetailPage() {
       {note && (
         <>
           <div className="note-hero">
-            <span className="note-hero__cat">{note.category}</span>
-            <h1>{note.name}</h1>
-            <p>{note.description}</p>
+            {note.image_url && (
+              <div className="note-hero__bg" style={{ backgroundImage: `url(${note.image_url})` }} />
+            )}
+            <div className="note-hero__content">
+              <span className="note-hero__cat">{note.category}</span>
+              <h1>{note.name}</h1>
+              <p>{note.description}</p>
+            </div>
           </div>
 
           <section className="section">

@@ -5,7 +5,7 @@ export const NoteModel = {
   async getAll({ category, search } = {}) {
     let query = supabase
       .from("notes")
-      .select("id, name, category, description, perfume_notes ( count )")
+      .select("id, name, category, description, image_url, perfume_notes ( count )")
       .order("name");
 
     if (category) query = query.eq("category", category);
@@ -38,7 +38,7 @@ export const NoteModel = {
     const { data, error } = await supabase
       .from("notes")
       .select(
-        `id, name, category, description,
+        `id, name, category, description, image_url,
          perfume_notes (
            layer,
            perfumes ( id, name, concentration, image_url, price, scent_profiles, brands ( name, slug ) )
