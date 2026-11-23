@@ -5,6 +5,11 @@ import { apiClient } from '../config/api'
 // CRUD: Create, Read, Update, Delete.
 // ---------------------------------------------------------------------------
 class ReviewService {
+  /** Ambil semua review di platform. */
+  async getAll() {
+    return apiClient.get('/api/reviews')
+  }
+
   /** Ambil semua review untuk satu parfum. */
   async getByPerfumeId(perfumeId) {
     return apiClient.get(`/api/perfumes/${perfumeId}/reviews`)

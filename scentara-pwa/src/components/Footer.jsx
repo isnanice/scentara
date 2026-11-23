@@ -19,10 +19,10 @@ export default function Footer() {
           <div>
             <h3>Jelajahi</h3>
             <ul>
-              <li><Link to="/katalog">Katalog lengkap</Link></li>
-              <li><Link to="/brand">Per brand</Link></li>
-              <li><Link to="/aroma">Per profil aroma</Link></li>
+              <li><Link to="/">Katalog di Beranda</Link></li>
               <li><Link to="/notes">Notes aroma</Link></li>
+              <li><Link to="/ulasan">Ulasan komunitas</Link></li>
+              <li><Link to="/favorit">Koleksi favorit</Link></li>
             </ul>
           </div>
 

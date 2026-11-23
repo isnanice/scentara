@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom'
-import { Home, LayoutGrid, Flower2, Heart, User } from 'lucide-react'
+import { Home, Flower2, MessageSquare, Heart, User } from 'lucide-react'
 import { useFavorites } from '../hooks/useFavorites'
 
 const ITEMS = [
   { to: '/', label: 'Beranda', icon: Home, end: true },
-  { to: '/katalog', label: 'Katalog', icon: LayoutGrid },
   { to: '/notes', label: 'Notes', icon: Flower2 },
+  { to: '/ulasan', label: 'Ulasan', icon: MessageSquare },
   { to: '/favorit', label: 'Favorit', icon: Heart, badge: true },
   { to: '/profile', label: 'Profile', icon: User },
 ]

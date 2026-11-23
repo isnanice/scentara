@@ -84,3 +84,53 @@ export function useReviews(perfumeId) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// useAllReviews: ambil semua review di platform untuk halaman Ulasan.
+// ---------------------------------------------------------------------------
+export function useAllReviews() {
+  const { data, loading, error, refetch } = useAsync(
+    () => reviewService.getAll(),
+    'all-reviews',
+  )
+
+  const reviewerId = getReviewerId()
+  const [submitting, setSubmitting] = useState(false)
+
+  const updateReview = useCallback(
+    async (reviewId, { author, rating, comment }) => {
+      setSubmitting(true)
+      try {
+        await reviewService.update(reviewId, { author, rating, comment })
+        refetch()
+      } finally {
+        setSubmitting(false)
+      }
+    },
+    [refetch],
+  )
+
+  const deleteReview = useCallback(
+    async (reviewId) => {
+      setSubmitting(true)
+      try {
+        await reviewService.delete(reviewId)
+        refetch()
+      } finally {
+        setSubmitting(false)
+      }
+    },
+    [refetch],
+  )
+
+  return {
+    reviews: data ?? [],
+    loading,
+    error,
+    refetch,
+    reviewerId,
+    submitting,
+    updateReview,
+    deleteReview,
+  }
+}
+

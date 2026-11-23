@@ -2659,3 +2659,292 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ------------------------------------------------------------------
+   Halaman Ulasan Komunitas (/ulasan) & Beranda Katalog
+------------------------------------------------------------------ */
+.catalog-home-section {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1.5px solid var(--line);
+}
+
+.catalog-home-sub {
+  color: var(--gray-500);
+  margin-top: 6px;
+  font-size: 0.96rem;
+  max-width: 60ch;
+}
+
+.reviews-page {
+  padding-bottom: 24px;
+}
+
+.reviews-overview-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 32px;
+  background: var(--white);
+  border: 1.5px solid var(--black);
+  border-radius: 12px;
+  margin: 24px 0 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  flex-wrap: wrap;
+}
+
+.reviews-overview__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reviews-overview__score {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.reviews-overview__avg {
+  font-size: 2.8rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.reviews-overview__stars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reviews-overview__total {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+.reviews-overview__hint {
+  font-size: 0.88rem;
+  color: var(--gray-600);
+  max-width: 55ch;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.btn--add-review {
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  gap: 8px;
+}
+
+/* Toolbar Filter Ulasan */
+.reviews-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+
+.reviews-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reviews-filter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.reviews-select {
+  padding: 8px 14px;
+  border: 1.5px solid var(--black);
+  border-radius: 999px;
+  background: var(--white);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--black);
+  cursor: pointer;
+}
+
+.reviews-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
+}
+
+.reviews-select--full {
+  width: 100%;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.reviews-filter-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  color: #dc2626;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px 8px;
+}
+
+/* Feed Ulasan */
+.reviews-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.review-feed-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.review-feed-item__perfume {
+  display: flex;
+  align-items: center;
+}
+
+.review-feed-item__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: var(--gray-100);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--black);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+
+.review-feed-item__link:hover {
+  background: var(--gray-200);
+}
+
+/* Modal Tambah Ulasan */
+.review-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.review-modal {
+  width: 100%;
+  max-width: 560px;
+  background: var(--white);
+  border: 1.5px solid var(--black);
+  border-radius: 14px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.2);
+  padding: 28px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalFadeUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.review-modal__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.review-modal__head h3 {
+  font-size: 1.35rem;
+  margin: 0;
+  font-family: var(--font-serif);
+}
+
+.review-modal__close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  color: var(--gray-400);
+  transition: color 0.15s, background 0.15s;
+}
+
+.review-modal__close:hover {
+  color: var(--black);
+  background: var(--gray-100);
+}
+
+.review-modal__select-perfume {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.review-modal__select-perfume label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+@media (max-width: 680px) {
+  .reviews-overview-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .btn--add-review {
+    width: 100%;
+  }
+
+  .reviews-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .reviews-select {
+    width: 100%;
+  }
+}

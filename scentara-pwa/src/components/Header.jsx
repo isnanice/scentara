@@ -5,10 +5,9 @@ import { Search } from 'lucide-react'
 // Menu situs (tampil di layar lebar). Di HP, navigasi memakai Bottom Navigation Bar.
 const NAV_ITEMS = [
   { to: '/', label: 'Beranda', end: true },
-  { to: '/katalog', label: 'Katalog lengkap' },
-  { to: '/brand', label: 'Per brand' },
-  { to: '/aroma', label: 'Per profil aroma' },
   { to: '/notes', label: 'Notes' },
+  { to: '/ulasan', label: 'Ulasan' },
+  { to: '/favorit', label: 'Favorit' },
   { to: '/profile', label: 'Profile' },
 ]
 

@@ -1,6 +1,16 @@
 import { supabase } from "../config/supabaseClient.js";
 
 export const ReviewModel = {
+  // Ambil semua ulasan di platform beserta info parfum
+  async getAll() {
+    const { data, error } = await supabase
+      .from("reviews")
+      .select("id, perfume_id, author, rating, comment, reviewer_id, created_at, updated_at")
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    return data;
+  },
+
   // Ambil semua review untuk satu parfum, urutkan dari terbaru
   async getByPerfumeId(perfumeId) {
     const { data, error } = await supabase

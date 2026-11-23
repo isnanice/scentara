@@ -2,6 +2,16 @@ import { ReviewModel } from "../models/reviewModel.js";
 import { sendError } from "./respond.js";
 
 export const ReviewController = {
+  // GET /api/reviews
+  async getAll(req, res) {
+    try {
+      const data = await ReviewModel.getAll();
+      res.json(data);
+    } catch (err) {
+      sendError(res, err);
+    }
+  },
+
   // GET /api/perfumes/:perfumeId/reviews
   async getByPerfumeId(req, res) {
     try {
