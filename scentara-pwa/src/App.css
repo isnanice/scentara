@@ -1337,73 +1337,227 @@
 }
 
 /* ------------------------------------------------------------------
-   Tentang
+   Tentang Scentara (Editorial & Katalog)
 ------------------------------------------------------------------ */
-.about-logo {
-  margin-bottom: 8px;
+.about-hero {
+  padding: 32px 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about-hero__badge {
+  display: inline-block;
+  width: fit-content;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.about-hero__title {
+  font-size: clamp(2rem, 3.8vw, 2.6rem);
+  line-height: 1.15;
+  font-family: var(--font-serif);
+  margin: 0;
+}
+
+.about-hero__lede {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--gray-600);
+  max-width: 72ch;
+  margin: 0;
 }
 
 .about-card {
   display: grid;
-  gap: 12px;
-  margin-top: 16px;
-  padding: 26px;
+  gap: 16px;
+  margin-top: 22px;
+  padding: 28px 32px;
+  background: var(--white);
   border: 1.5px solid var(--line);
+  border-radius: 12px;
+}
+
+.about-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.about-card__icon {
+  color: var(--black);
+  flex-shrink: 0;
 }
 
 .about-card h2 {
-  font-size: 1.7rem;
+  font-size: 1.45rem;
+  margin: 0;
 }
 
 .about-card p {
-  max-width: 64ch;
+  max-width: 72ch;
+  color: var(--gray-600);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.about-card--accent {
+  background: var(--gray-50);
+  border-color: var(--gray-200);
+}
+
+/* Penjelasan Piramida Notes */
+.pyramid-explain {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.pyramid-explain__item {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pyramid-explain__badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.pyramid-explain__badge--top {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.pyramid-explain__badge--mid {
+  background: #fce7f3;
+  color: #9d174d;
+}
+
+.pyramid-explain__badge--base {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.pyramid-explain__item h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.pyramid-explain__item p {
+  font-size: 0.88rem;
+  line-height: 1.5;
   color: var(--gray-500);
 }
 
-.about-card--profile {
-  background: var(--black);
-  border-color: var(--black);
-  color: var(--white);
-}
-
-.about-card--profile .btn {
-  justify-self: start;
-  border-color: var(--white);
-  background: transparent;
-  color: var(--white);
-}
-
-.about-card--profile .btn:hover {
-  background: var(--white);
-  color: var(--black);
-}
-
-.about-list {
+/* Grid Fitur */
+.feature-grid {
   display: grid;
-  gap: 12px;
-  margin: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 8px;
 }
 
-.about-list dt {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.about-list dd {
-  margin: 0;
-  font-weight: 500;
-}
-
-.source-list {
+.feature-item {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 20px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 22px;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.source-list a {
-  font-weight: 500;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.feature-item h3 {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.feature-item p {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--gray-500);
+}
+
+/* Brand Terkurasi */
+.curated-brands {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.curated-brands__item {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--gray-50);
+}
+
+.curated-brands__meta h3 {
+  font-size: 1.15rem;
+  margin: 0 0 6px 0;
+}
+
+.curated-brands__meta p {
+  font-size: 0.88rem;
+  color: var(--gray-500);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.curated-brands__links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn--sm {
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  border-radius: 6px;
+  gap: 6px;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .pyramid-explain {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .curated-brands {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card {
+    padding: 22px 18px;
+  }
 }
 
 /* ------------------------------------------------------------------
@@ -1475,8 +1629,8 @@
 
 .footer__cols {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px;
 }
 
 .footer__cols h3 {
@@ -1816,5 +1970,323 @@
 
   .review-card {
     padding: 14px 16px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Profile (Manajemen Profil & CRUD)
+------------------------------------------------------------------ */
+.profile-section {
+  padding-top: 16px;
+}
+
+.profile-section__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.profile-section__kicker {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 4px;
+}
+
+.profile-section__title {
+  font-size: clamp(1.8rem, 3vw, 2.2rem);
+  font-family: var(--font-serif);
+  margin: 0;
+}
+
+.profile-section__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.profile-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  color: #166534;
+  font-size: 0.92rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+/* Card Profil Aktif (Read) */
+.profile-card {
+  background: var(--white);
+  border: 1.5px solid var(--black);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.profile-card__main {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: var(--black);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 2px solid var(--gray-200);
+}
+
+.profile-avatar--edit {
+  width: 80px;
+  height: 80px;
+}
+
+.profile-avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile-avatar__text {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-family: var(--font-serif);
+}
+
+.profile-photo-editor {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 18px 22px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  margin-bottom: 22px;
+}
+
+.profile-photo-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.profile-photo-tip {
+  font-size: 0.78rem;
+  color: var(--gray-400);
+  max-width: 48ch;
+  line-height: 1.4;
+}
+
+.profile-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-card__name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.profile-card__name {
+  font-size: 1.7rem;
+  font-family: var(--font-serif);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.profile-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.profile-card__scent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  color: var(--gray-800);
+  width: fit-content;
+}
+
+.profile-card__bio {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 68ch;
+}
+
+/* Form Profil (Create & Update) */
+.profile-form {
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-300);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.profile-form__title {
+  font-size: 1.3rem;
+  margin: 0 0 20px 0;
+}
+
+.profile-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group--full {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 10px 14px;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  background: var(--white);
+  transition: border-color 0.15s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--black);
+}
+
+.profile-form__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+/* Empty State (Delete State) */
+.profile-empty {
+  background: var(--gray-50);
+  border: 2px dashed var(--gray-300);
+  border-radius: 12px;
+  padding: 40px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-empty__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.profile-empty__desc {
+  color: var(--gray-500);
+  max-width: 50ch;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.profile-empty__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Divider Antara Profil dan Isi Tentang */
+.profile-divider {
+  border: none;
+  border-top: 2px solid var(--line);
+  margin: 48px 0 24px;
+}
+
+.btn--danger-outline {
+  border-color: #fca5a5;
+  color: #dc2626;
+  background: transparent;
+}
+
+.btn--danger-outline:hover {
+  background: #fef2f2;
+  border-color: #dc2626;
+}
+
+@media (max-width: 680px) {
+  .profile-card__main {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-card__name-row {
+    justify-content: center;
+  }
+
+  .profile-card__nim-badge {
+    margin: 0 auto;
+  }
+
+  .profile-meta-grid {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .profile-form__grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -10,7 +10,7 @@ import PerfumeDetailPage from './pages/PerfumeDetailPage.jsx'
 import NotesPage from './pages/NotesPage.jsx'
 import NoteDetailPage from './pages/NoteDetailPage.jsx'
 import FavoritesPage from './pages/FavoritesPage.jsx'
-import AboutPage from './pages/AboutPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
 import BrandsPage from './pages/BrandsPage.jsx'
 import ScentProfilesPage from './pages/ScentProfilesPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
@@ -32,7 +32,8 @@ function App() {
           <Route path="/notes" element={<NotesPage />} />
           <Route path="/notes/:id" element={<NoteDetailPage />} />
           <Route path="/favorit" element={<FavoritesPage />} />
-          <Route path="/tentang" element={<AboutPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/tentang" element={<ProfilePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

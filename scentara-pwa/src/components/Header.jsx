@@ -10,7 +10,7 @@ const NAV_ITEMS = [
   { to: '/brand', label: 'Per brand' },
   { to: '/aroma', label: 'Per profil aroma' },
   { to: '/notes', label: 'Notes' },
-  { to: '/tentang', label: 'Tentang' },
+  { to: '/profile', label: 'Profile' },
 ]
 
 export default function Header() {

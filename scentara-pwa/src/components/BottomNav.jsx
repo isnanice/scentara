@@ -7,7 +7,7 @@ const ITEMS = [
   { to: '/katalog', label: 'Katalog', icon: LayoutGrid },
   { to: '/notes', label: 'Notes', icon: Flower2 },
   { to: '/favorit', label: 'Favorit', icon: Heart, badge: true },
-  { to: '/tentang', label: 'Tentang', icon: User },
+  { to: '/profile', label: 'Profile', icon: User },
 ]
 
 export default function BottomNav() {
