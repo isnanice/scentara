@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Heart, Search } from 'lucide-react'
-import { useFavorites } from '../hooks/useFavorites'
+import { Search } from 'lucide-react'
 
 // Menu situs (tampil di layar lebar). Di HP, navigasi memakai Bottom Navigation Bar.
 const NAV_ITEMS = [
@@ -16,7 +15,6 @@ const NAV_ITEMS = [
 export default function Header() {
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
-  const { ids } = useFavorites()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -45,15 +43,6 @@ export default function Header() {
               <Search size={18} />
             </button>
           </form>
-
-          <Link
-            to="/favorit"
-            className="header__fav"
-            aria-label={`Favorit, ${ids.length} parfum tersimpan`}
-          >
-            <Heart size={22} />
-            {ids.length > 0 && <span className="header__badge">{ids.length}</span>}
-          </Link>
         </div>
 
         <nav className="mainnav" aria-label="Menu situs">
