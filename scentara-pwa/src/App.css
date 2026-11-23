@@ -2086,20 +2086,16 @@
 
 @media (max-width: 640px) {
   .header__row {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      'logo fav'
-      'search search';
+      'logo'
+      'search';
     gap: 14px 16px;
     padding: 14px 16px;
   }
 
   .header__logo {
     grid-area: logo;
-  }
-
-  .header__fav {
-    grid-area: fav;
   }
 
   .header__search {
