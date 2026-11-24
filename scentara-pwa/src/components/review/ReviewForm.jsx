@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Send, X } from 'lucide-react'
+import { useEffect, useState, useRef } from 'react'
+import { Send, X, Camera, Image as ImageIcon, Trash2, UploadCloud } from 'lucide-react'
 import { StarInput } from './StarRating'
 import { useProfile } from '../../hooks/useProfile'
 
@@ -8,7 +8,9 @@ export default function ReviewForm({ onSubmit, editingReview, onCancelEdit, subm
   const [author, setAuthor] = useState('')
   const [rating, setRating] = useState(5)
   const [comment, setComment] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
   const [error, setError] = useState('')
+  const fileInputRef = useRef(null)
 
   // Saat mode edit, isi form dengan data review terpilih
   useEffect(() => {
@@ -16,12 +18,14 @@ export default function ReviewForm({ onSubmit, editingReview, onCancelEdit, subm
       setAuthor(editingReview.author || '')
       setRating(Number(editingReview.rating) || 5)
       setComment(editingReview.comment || '')
+      setImageUrl(editingReview.image_url || '')
       setError('')
     } else {
       // Saat buat baru, otomatis isi nama dari profil pengguna
       setAuthor(profile?.name || '')
       setRating(5)
       setComment('')
+      setImageUrl('')
       setError('')
     }
   }, [editingReview, profile?.name])
@@ -30,7 +34,44 @@ export default function ReviewForm({ onSubmit, editingReview, onCancelEdit, subm
     setAuthor(profile?.name || '')
     setRating(5)
     setComment('')
+    setImageUrl('')
     setError('')
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    if (!file.type.startsWith('image/')) {
+      setError('Harap pilih file gambar (JPG, PNG, atau WebP).')
+      return
+    }
+
+    // Maksimal 3MB untuk menjaga performa
+    if (file.size > 3 * 1024 * 1024) {
+      setError('Ukuran foto terlalu besar. Maksimal 3MB.')
+      return
+    }
+
+    setError('')
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      setImageUrl(event.target.result)
+    }
+    reader.onerror = () => {
+      setError('Gagal membaca file gambar.')
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const handleRemovePhoto = () => {
+    setImageUrl('')
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -42,7 +83,12 @@ export default function ReviewForm({ onSubmit, editingReview, onCancelEdit, subm
     if (!comment.trim()) return setError('Ulasan tidak boleh kosong.')
 
     try {
-      await onSubmit({ author: author.trim(), rating, comment: comment.trim() })
+      await onSubmit({
+        author: author.trim(),
+        rating,
+        comment: comment.trim(),
+        image_url: imageUrl || '',
+      })
       if (!editingReview) reset()
     } catch (err) {
       setError(err.message || 'Gagal menyimpan ulasan.')
@@ -91,6 +137,56 @@ export default function ReviewForm({ onSubmit, editingReview, onCancelEdit, subm
           disabled={submitting}
           required
         />
+      </div>
+
+      {/* UPLOAD FOTO REVIEW */}
+      <div className="review-form__field">
+        <label>Foto Parfum / Botol (Opsional)</label>
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/png, image/jpeg, image/jpg, image/webp"
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+          disabled={submitting}
+          id="review-photo-input"
+        />
+
+        {imageUrl ? (
+          <div className="review-upload-preview">
+            <div className="review-upload-thumb">
+              <img src={imageUrl} alt="Pratinjau foto ulasan" />
+            </div>
+            <div className="review-upload-info">
+              <span className="review-upload-status">Foto siap dilampirkan</span>
+              <button
+                type="button"
+                className="review-upload-remove-btn"
+                onClick={handleRemovePhoto}
+                disabled={submitting}
+              >
+                <Trash2 size={13} /> Hapus foto
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div
+            className="review-upload-dropzone"
+            onClick={() => fileInputRef.current?.click()}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && fileInputRef.current?.click()}
+          >
+            <div className="review-upload-dropzone__icon">
+              <Camera size={22} />
+            </div>
+            <div className="review-upload-dropzone__text">
+              <strong>Klik untuk unggah foto</strong>
+              <span>Format JPG, PNG, atau WebP (Maks. 3MB)</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {error && <p className="review-form__error">{error}</p>}

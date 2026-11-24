@@ -28,13 +28,14 @@ export function useReviews(perfumeId) {
   const [submitting, setSubmitting] = useState(false)
 
   const createReview = useCallback(
-    async ({ author, rating, comment }) => {
+    async ({ author, rating, comment, image_url }) => {
       setSubmitting(true)
       try {
         await reviewService.create(perfumeId, {
           author,
           rating,
           comment,
+          image_url,
           reviewer_id: reviewerId,
         })
         refetch()
@@ -46,10 +47,10 @@ export function useReviews(perfumeId) {
   )
 
   const updateReview = useCallback(
-    async (reviewId, { author, rating, comment }) => {
+    async (reviewId, { author, rating, comment, image_url }) => {
       setSubmitting(true)
       try {
-        await reviewService.update(reviewId, { author, rating, comment })
+        await reviewService.update(reviewId, { author, rating, comment, image_url })
         refetch()
       } finally {
         setSubmitting(false)
@@ -97,13 +98,14 @@ export function useAllReviews() {
   const [submitting, setSubmitting] = useState(false)
 
   const createReview = useCallback(
-    async (perfumeId, { author, rating, comment }) => {
+    async (perfumeId, { author, rating, comment, image_url }) => {
       setSubmitting(true)
       try {
         const res = await reviewService.create(perfumeId, {
           author,
           rating,
           comment,
+          image_url,
           reviewer_id: reviewerId,
         })
         refetch()
@@ -116,10 +118,10 @@ export function useAllReviews() {
   )
 
   const updateReview = useCallback(
-    async (reviewId, { author, rating, comment }) => {
+    async (reviewId, { author, rating, comment, image_url }) => {
       setSubmitting(true)
       try {
-        await reviewService.update(reviewId, { author, rating, comment })
+        await reviewService.update(reviewId, { author, rating, comment, image_url })
         refetch()
       } finally {
         setSubmitting(false)

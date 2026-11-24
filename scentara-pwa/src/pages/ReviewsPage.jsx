@@ -5,6 +5,7 @@ import { useAllReviews } from '../hooks/useReviews'
 import { usePerfumes } from '../hooks/usePerfumes'
 import ReviewCard from '../components/review/ReviewCard.jsx'
 import ReviewForm from '../components/review/ReviewForm.jsx'
+import CustomDropdown from '../components/common/CustomDropdown.jsx'
 import { LoadingState, ErrorState, EmptyState } from '../components/common/StateBox.jsx'
 
 export default function ReviewsPage() {
@@ -58,6 +59,37 @@ export default function ReviewsPage() {
     const sum = reviews.reduce((acc, r) => acc + (Number(r.rating) || 0), 0)
     return (sum / reviews.length).toFixed(1)
   }, [reviews])
+
+  // Opsi Dropdown Parfum (konsisten dengan CategoryDropdown)
+  const perfumeOptions = useMemo(() => [
+    { value: '', label: 'Semua Parfum', count: reviews.length },
+    ...perfumes.map((p) => {
+      const pReviews = reviews.filter((r) => r.perfume_id === p.id)
+      return {
+        value: p.id,
+        label: p.name,
+        sublabel: p.brands?.name || 'Artisanal Scent',
+        count: pReviews.length > 0 ? pReviews.length : undefined,
+      }
+    }),
+  ], [perfumes, reviews])
+
+  // Opsi Dropdown Rating Bintang
+  const ratingOptions = useMemo(() => [
+    { value: 0, label: 'Semua Rating', count: reviews.length },
+    { value: 5, label: '5 Bintang (Sempurna)', sublabel: '⭐⭐⭐⭐⭐', count: reviews.filter((r) => Number(r.rating) === 5).length },
+    { value: 4, label: '4 Bintang (Sangat Baik)', sublabel: '⭐⭐⭐⭐', count: reviews.filter((r) => Number(r.rating) === 4).length },
+    { value: 3, label: '3 Bintang (Cukup)', sublabel: '⭐⭐⭐', count: reviews.filter((r) => Number(r.rating) === 3).length },
+    { value: 2, label: '2 Bintang (Kurang)', sublabel: '⭐⭐', count: reviews.filter((r) => Number(r.rating) === 2).length },
+    { value: 1, label: '1 Bintang (Buruk)', sublabel: '⭐', count: reviews.filter((r) => Number(r.rating) === 1).length },
+  ], [reviews])
+
+  // Opsi Pemilihan Parfum untuk Modal Buat Ulasan
+  const modalPerfumeOptions = useMemo(() => perfumes.map((p) => ({
+    value: p.id,
+    label: p.name,
+    sublabel: p.brands?.name || 'Artisanal Perfume',
+  })), [perfumes])
 
   // CREATE: Tambah Ulasan Baru
   const handleCreateReview = async (formData) => {
@@ -138,58 +170,34 @@ export default function ReviewsPage() {
         </button>
       </section>
 
-      {/* 3. TOOLBAR FILTER ULASAN */}
+      {/* 3. TOOLBAR FILTER ULASAN DENGAN CUSTOM DROPDOWN */}
       <div className="reviews-toolbar">
         <div className="reviews-filter-group">
-          <label className="reviews-filter-label" htmlFor="perfume-filter">
-            <Filter size={15} /> Parfum:
-          </label>
-          <select
-            id="perfume-filter"
+          <CustomDropdown
             value={selectedPerfumeId}
-            onChange={(e) => setSelectedPerfumeId(e.target.value)}
-            className="reviews-select"
-          >
-            <option value="">Semua Parfum ({perfumes.length})</option>
-            {perfumes.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.brands?.name ? `${p.brands.name} - ` : ''}{p.name}
-              </option>
-            ))}
-          </select>
+            onChange={(val) => setSelectedPerfumeId(val)}
+            options={perfumeOptions}
+            placeholder="Semua Parfum"
+            labelPrefix="Parfum:"
+            icon={Filter}
+            searchable
+            headerTitle="Filter Berdasarkan Parfum"
+            minWidth="240px"
+          />
         </div>
 
         <div className="reviews-filter-group">
-          <label className="reviews-filter-label" htmlFor="rating-filter">
-            Rating:
-          </label>
-          <select
-            id="rating-filter"
+          <CustomDropdown
             value={filterRating}
-            onChange={(e) => setFilterRating(Number(e.target.value))}
-            className="reviews-select"
-          >
-            <option value={0}>Semua Rating</option>
-            <option value={5}>⭐⭐⭐⭐⭐ (5 Bintang)</option>
-            <option value={4}>⭐⭐⭐⭐ (4 Bintang)</option>
-            <option value={3}>⭐⭐⭐ (3 Bintang)</option>
-            <option value={2}>⭐⭐ (2 Bintang)</option>
-            <option value={1}>⭐ (1 Bintang)</option>
-          </select>
+            onChange={(val) => setFilterRating(Number(val))}
+            options={ratingOptions}
+            placeholder="Semua Rating"
+            labelPrefix="Rating:"
+            icon={Star}
+            headerTitle="Filter Berdasarkan Rating"
+            minWidth="200px"
+          />
         </div>
-
-        {(selectedPerfumeId || filterRating > 0) && (
-          <button
-            type="button"
-            className="reviews-filter-reset"
-            onClick={() => {
-              setSelectedPerfumeId('')
-              setFilterRating(0)
-            }}
-          >
-            <X size={14} /> Reset Filter
-          </button>
-        )}
       </div>
 
       {/* 4. MODAL FORM TAMBAH ULASAN (CREATE) */}
@@ -212,19 +220,18 @@ export default function ReviewsPage() {
             </div>
 
             <div className="review-modal__select-perfume">
-              <label htmlFor="modal-perfume-select">Pilih Parfum yang Ingin Diulas *</label>
-              <select
-                id="modal-perfume-select"
+              <label style={{ display: 'block', marginBottom: 8, fontSize: '0.88rem', fontWeight: 600 }}>
+                Pilih Parfum yang Ingin Diulas *
+              </label>
+              <CustomDropdown
                 value={modalPerfumeId}
-                onChange={(e) => setModalPerfumeId(e.target.value)}
-                className="reviews-select reviews-select--full"
-              >
-                {perfumes.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.brands?.name ? `${p.brands.name} - ` : ''}{p.name}
-                  </option>
-                ))}
-              </select>
+                onChange={(val) => setModalPerfumeId(val)}
+                options={modalPerfumeOptions}
+                placeholder="Pilih koleksi parfum..."
+                searchable
+                fullWidth
+                headerTitle="Katalog Parfum Scentara"
+              />
             </div>
 
             <ReviewForm onSubmit={handleCreateReview} submitting={submitting} />

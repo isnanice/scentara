@@ -3,10 +3,10 @@ import { Home, Flower2, MessageSquare, Heart, User } from 'lucide-react'
 import { useFavorites } from '../hooks/useFavorites'
 
 const ITEMS = [
-  { to: '/', label: 'Beranda', icon: Home, end: true },
+  { to: '/', label: 'Home', icon: Home, end: true },
   { to: '/notes', label: 'Notes', icon: Flower2 },
-  { to: '/ulasan', label: 'Ulasan', icon: MessageSquare },
-  { to: '/favorit', label: 'Favorit', icon: Heart, badge: true },
+  { to: '/ulasan', label: 'Reviews', icon: MessageSquare },
+  { to: '/favorit', label: 'Favorites', icon: Heart, badge: true },
   { to: '/profile', label: 'Profile', icon: User },
 ]
 

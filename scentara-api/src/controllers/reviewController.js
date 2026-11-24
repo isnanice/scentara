@@ -25,7 +25,7 @@ export const ReviewController = {
   // POST /api/perfumes/:perfumeId/reviews
   async create(req, res) {
     try {
-      const { author, rating, comment, reviewer_id } = req.body;
+      const { author, rating, comment, reviewer_id, image_url } = req.body;
 
       // Validasi sederhana
       if (!author || !author.trim()) {
@@ -47,6 +47,7 @@ export const ReviewController = {
         rating,
         comment: comment.trim(),
         reviewer_id,
+        image_url: image_url || null,
       });
       res.status(201).json(data);
     } catch (err) {
@@ -57,7 +58,7 @@ export const ReviewController = {
   // PUT /api/reviews/:id
   async update(req, res) {
     try {
-      const { author, rating, comment } = req.body;
+      const { author, rating, comment, image_url } = req.body;
 
       if (!author || !author.trim()) {
         return res.status(400).json({ error: "Nama tidak boleh kosong." });
@@ -73,6 +74,7 @@ export const ReviewController = {
         author: author.trim(),
         rating,
         comment: comment.trim(),
+        image_url: image_url !== undefined ? image_url : undefined,
       });
       res.json(data);
     } catch (err) {

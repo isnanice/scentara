@@ -6,6 +6,7 @@ import { useBrands, useScentProfiles } from '../hooks/useMeta'
 import PerfumeCard from '../components/perfume/PerfumeCard.jsx'
 import NotePyramid from '../components/perfume/NotePyramid.jsx'
 import ImageWithFallback from '../components/common/ImageWithFallback.jsx'
+import CustomDropdown from '../components/common/CustomDropdown.jsx'
 import { LoadingState, ErrorState, EmptyState } from '../components/common/StateBox.jsx'
 import { pickOfTheDay, sortPerfumes } from '../utils/helpers'
 
@@ -19,10 +20,11 @@ const SORT_OPTIONS = [
 ]
 
 /* ikon filter SVG ala Shopee (funnel + sparkle) */
-function FilterIcon({ size = 20 }) {
+function FilterIcon({ size = 18 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 6h18M6 12h12M9 18h6" />
+      <path d="M3 4h12l-5 6.5v7l-2-1v-6z" />
+      <path d="M19 2v4M17 4h4" strokeWidth="1.5" />
     </svg>
   )
 }
@@ -170,16 +172,15 @@ export default function HomePage() {
           </p>
 
           <div className="catalog-toolbar__right">
-            <label className="sort">
-              <span>Urutkan</span>
-              <select value={sortKey} onChange={(e) => setSortKey(e.target.value)}>
-                {SORT_OPTIONS.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <CustomDropdown
+              value={sortKey}
+              onChange={setSortKey}
+              options={SORT_OPTIONS}
+              labelPrefix="Urutkan:"
+              placeholder="Urutkan"
+              alwaysPlaceholder
+              minWidth="140px"
+            />
 
             <button
               type="button"

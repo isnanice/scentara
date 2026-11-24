@@ -16,6 +16,7 @@ const SEED_REVIEWS = [
     author: 'Isna Ima Solekhah',
     rating: 5,
     comment: 'Aroma powdery dan clean musky-nya sangat menenangkan! Terasa seperti pakaian linen putih yang baru selesai dicuci dan terkena angin sore.',
+    image_url: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80',
     reviewer_id: 'default-user',
     created_at: new Date(Date.now() - 3600000 * 4).toISOString(),
     updated_at: new Date(Date.now() - 3600000 * 4).toISOString(),
@@ -26,6 +27,7 @@ const SEED_REVIEWS = [
     author: 'Reza Pratama',
     rating: 5,
     comment: 'Vanilla dan spicy amber-nya luar biasa bold! Cocok banget buat acara malam formal atau kencan, longevity tembus 8 jam lebih di kulit.',
+    image_url: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80',
     reviewer_id: 'user-reza',
     created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
     updated_at: new Date(Date.now() - 3600000 * 24).toISOString(),
@@ -36,6 +38,7 @@ const SEED_REVIEWS = [
     author: 'Dinda Kirana',
     rating: 4,
     comment: 'Green notes dan citrus-nya menyegarkan sekali di cuaca tropis yang terik. Proyeksinya pas untuk daily wear ke kampus atau kantor.',
+    image_url: '',
     reviewer_id: 'user-dinda',
     created_at: new Date(Date.now() - 3600000 * 48).toISOString(),
     updated_at: new Date(Date.now() - 3600000 * 48).toISOString(),
@@ -50,7 +53,18 @@ function readLocalReviews() {
       return SEED_REVIEWS
     }
     const parsed = JSON.parse(raw)
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : SEED_REVIEWS
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      // Pastikan data bibit mendapatkan image_url jika belum ada
+      const updated = parsed.map((item) => {
+        const seedMatch = SEED_REVIEWS.find((s) => s.id === item.id)
+        if (seedMatch && !item.image_url && seedMatch.image_url) {
+          return { ...item, image_url: seedMatch.image_url }
+        }
+        return item
+      })
+      return updated
+    }
+    return SEED_REVIEWS
   } catch {
     return SEED_REVIEWS
   }
@@ -67,47 +81,74 @@ function writeLocalReviews(reviews) {
 class ReviewService {
   /**
    * READ ALL: Ambil semua ulasan di platform.
+   * Merge data API dengan cache lokal agar image_url yang tersimpan lokal tidak hilang.
    */
   async getAll() {
+    const localData = readLocalReviews()
+
     try {
-      const data = await apiClient.get('/api/reviews')
-      if (Array.isArray(data) && data.length > 0) {
-        writeLocalReviews(data)
-        return data
+      const apiData = await apiClient.get('/api/reviews')
+      if (Array.isArray(apiData) && apiData.length > 0) {
+        // Buat map lokal untuk lookup image_url yang tidak ada di API
+        const localMap = {}
+        localData.forEach((r) => { localMap[r.id] = r })
+
+        // Merge: pakai data API tapi pertahankan image_url dari lokal
+        const merged = apiData.map((r) => ({
+          ...r,
+          image_url: r.image_url || localMap[r.id]?.image_url || '',
+        }))
+
+        // Tambahkan review lokal yang belum ada di API (dibuat offline)
+        const apiIds = new Set(apiData.map((r) => r.id))
+        const localOnly = localData.filter((r) => !apiIds.has(r.id))
+
+        const finalData = [...localOnly, ...merged]
+        writeLocalReviews(finalData)
+        return finalData
       }
-      return readLocalReviews()
+      return localData
     } catch {
       // Fallback jika API backend offline
-      return readLocalReviews()
+      return localData
     }
   }
 
   /**
    * READ BY PERFUME: Ambil semua ulasan untuk satu parfum.
+   * Merge API + lokal agar image_url tidak hilang.
    */
   async getByPerfumeId(perfumeId) {
+    const local = readLocalReviews()
+    const localForPerfume = local.filter((r) => r.perfume_id === perfumeId)
+    const localMap = {}
+    localForPerfume.forEach((r) => { localMap[r.id] = r })
+
     try {
       const data = await apiClient.get(`/api/perfumes/${perfumeId}/reviews`)
       if (Array.isArray(data) && data.length > 0) {
-        return data
+        const merged = data.map((r) => ({
+          ...r,
+          image_url: r.image_url || localMap[r.id]?.image_url || '',
+        }))
+        return merged
       }
-      const local = readLocalReviews()
-      return local.filter((r) => r.perfume_id === perfumeId)
+      return localForPerfume
     } catch {
-      const local = readLocalReviews()
-      return local.filter((r) => r.perfume_id === perfumeId)
+      return localForPerfume
     }
   }
 
   /**
    * CREATE: Tambah ulasan baru.
    */
-  async create(perfumeId, { author, rating, comment, reviewer_id }) {
+  async create(perfumeId, { author, rating, comment, reviewer_id, image_url }) {
     const payload = {
       author,
       rating: Number(rating),
       comment,
       reviewer_id,
+      image_url: image_url || '',
     }
 
     let saved = null
@@ -123,6 +164,7 @@ class ReviewService {
         rating: payload.rating,
         comment: payload.comment,
         reviewer_id: payload.reviewer_id,
+        image_url: payload.image_url || '',
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       }
@@ -139,11 +181,12 @@ class ReviewService {
   /**
    * UPDATE: Perbarui ulasan yang ada.
    */
-  async update(reviewId, { author, rating, comment }) {
+  async update(reviewId, { author, rating, comment, image_url }) {
     const payload = {
       author,
       rating: Number(rating),
       comment,
+      image_url: image_url !== undefined ? image_url : '',
     }
 
     let updatedReview = null
@@ -160,6 +203,7 @@ class ReviewService {
           author: payload.author,
           rating: payload.rating,
           comment: payload.comment,
+          image_url: payload.image_url !== undefined ? payload.image_url : (target.image_url || ''),
           updated_at: new Date().toISOString(),
         }
       }
