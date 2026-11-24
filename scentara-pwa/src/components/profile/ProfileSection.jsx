@@ -80,24 +80,6 @@ export default function ProfileSection() {
 
   return (
     <section className="profile-section">
-      <div className="profile-section__head">
-        <div>
-          <span className="profile-section__kicker">Preferensi & Akun Pengguna</span>
-          <h2 className="profile-section__title">Profil Saya</h2>
-        </div>
-
-        {!isEditing && (
-          <button
-            type="button"
-            onClick={handleStartEdit}
-            className="btn btn--sm btn--primary"
-            aria-label="Edit Profil"
-          >
-            <Pencil size={15} /> Edit Profil
-          </button>
-        )}
-      </div>
-
       {notice && (
         <div className="profile-notice" role="status">
           <Check size={18} /> {notice}
@@ -107,7 +89,10 @@ export default function ProfileSection() {
       {/* MODE EDIT PROFIL */}
       {isEditing ? (
         <form className="profile-form" onSubmit={handleSubmit}>
-          <h3 className="profile-form__title">Edit Profil Pengguna</h3>
+          <div className="profile-form__head">
+            <h2 className="profile-form__title">Edit Profil Pengguna</h2>
+            <p className="profile-form__sub">Perbarui foto avatar, aroma favorit, dan deskripsi personal Anda.</p>
+          </div>
 
           {/* UPLOAD & HAPUS FOTO */}
           <div className="profile-photo-editor">
@@ -218,10 +203,18 @@ export default function ProfileSection() {
 
             <div className="profile-card__info">
               <div className="profile-card__name-row">
-                <h3 className="profile-card__name">{profile.name}</h3>
+                <h2 className="profile-card__name">{profile.name}</h2>
                 <span className="profile-badge">
                   <User size={13} /> Penikmat Wewangian
                 </span>
+                <button
+                  type="button"
+                  onClick={handleStartEdit}
+                  className="btn btn--sm btn--primary profile-card__edit-btn"
+                  aria-label="Edit Profil"
+                >
+                  <Pencil size={14} /> Edit Profil
+                </button>
               </div>
 
               {profile.favoriteScent && (

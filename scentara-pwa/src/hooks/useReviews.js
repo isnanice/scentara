@@ -96,6 +96,25 @@ export function useAllReviews() {
   const reviewerId = getReviewerId()
   const [submitting, setSubmitting] = useState(false)
 
+  const createReview = useCallback(
+    async (perfumeId, { author, rating, comment }) => {
+      setSubmitting(true)
+      try {
+        const res = await reviewService.create(perfumeId, {
+          author,
+          rating,
+          comment,
+          reviewer_id: reviewerId,
+        })
+        refetch()
+        return res
+      } finally {
+        setSubmitting(false)
+      }
+    },
+    [reviewerId, refetch],
+  )
+
   const updateReview = useCallback(
     async (reviewId, { author, rating, comment }) => {
       setSubmitting(true)
@@ -129,6 +148,7 @@ export function useAllReviews() {
     refetch,
     reviewerId,
     submitting,
+    createReview,
     updateReview,
     deleteReview,
   }

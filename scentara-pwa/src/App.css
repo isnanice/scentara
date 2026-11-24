@@ -27,6 +27,20 @@
   padding: 36px 0 28px;
 }
 
+.page-head__badge {
+  display: inline-block;
+  width: fit-content;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: var(--gray-100);
+  color: var(--gray-700);
+  margin-bottom: 2px;
+}
+
 .page-head h1 {
   font-size: clamp(2.2rem, 4.6vw, 3.2rem);
 }
@@ -1923,8 +1937,14 @@
 /* ------------------------------------------------------------------
    Tentang Scentara (Editorial & Katalog)
 ------------------------------------------------------------------ */
+.about-guide-section {
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+}
+
 .about-hero {
-  padding: 32px 0 20px;
+  padding: 16px 0 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -1946,7 +1966,7 @@
 .about-hero__title {
   font-size: clamp(2rem, 3.8vw, 2.6rem);
   line-height: 1.15;
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   margin: 0;
 }
 
@@ -1954,14 +1974,14 @@
   font-size: 1.05rem;
   line-height: 1.65;
   color: var(--gray-600);
-  max-width: 72ch;
+  max-width: 100%;
   margin: 0;
 }
 
 .about-card {
   display: grid;
   gap: 16px;
-  margin-top: 22px;
+  margin-top: 20px;
   padding: 28px 32px;
   background: var(--white);
   border: 1.5px solid var(--line);
@@ -1981,11 +2001,12 @@
 
 .about-card h2 {
   font-size: 1.45rem;
+  font-family: var(--font-display);
   margin: 0;
 }
 
 .about-card p {
-  max-width: 72ch;
+  max-width: 100%;
   color: var(--gray-600);
   line-height: 1.65;
   margin: 0;
@@ -2481,9 +2502,29 @@
   margin-bottom: 10px;
 }
 
+.review-card__author-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .review-card__author {
   font-weight: 600;
   font-size: 0.95rem;
+}
+
+.review-card__owner-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
 }
 
 .review-card__time {
@@ -2502,24 +2543,71 @@
 
 .review-card__actions {
   display: flex;
-  gap: 6px;
-  margin-top: 12px;
+  justify-content: flex-end;
+  margin-top: 14px;
   padding-top: 10px;
   border-top: 1px solid var(--gray-100);
 }
 
-.review-card__actions .icon-btn {
-  color: var(--gray-400);
-  transition: color 0.15s;
+.review-card__action-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
-.review-card__actions .icon-btn:hover {
+.review-card__btn-edit {
   color: var(--black);
+  border-color: var(--line);
 }
 
-.icon-btn--danger,
-.icon-btn--danger:hover {
-  color: #dc2626 !important;
+.review-card__btn-edit:hover {
+  background: var(--gray-100);
+}
+
+.review-card__btn-delete {
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+.review-card__btn-delete:hover {
+  background: #fef2f2;
+}
+
+.review-card__confirm-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 8px 14px;
+  border-radius: 8px;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.review-card__confirm-text {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #b91c1c;
+}
+
+.review-card__confirm-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn--danger-solid {
+  background: #dc2626;
+  color: var(--white);
+  border-color: #dc2626;
+}
+
+.btn--danger-solid:hover {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: var(--white);
 }
 
 .review-empty {
@@ -2677,13 +2765,18 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .profile-card__name {
-  font-size: 1.7rem;
-  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+  font-family: var(--font-display);
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.15;
+}
+
+.profile-card__edit-btn {
+  margin-left: auto;
 }
 
 .profile-badge {
@@ -2714,24 +2807,36 @@
 
 .profile-card__bio {
   color: var(--gray-600);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.98rem;
+  line-height: 1.65;
   margin: 0;
-  max-width: 68ch;
+  max-width: 100%;
 }
 
 /* Form Profil (Create & Update) */
 .profile-form {
-  background: var(--gray-50);
-  border: 1.5px solid var(--gray-300);
+  background: var(--white);
+  border: 1.5px solid var(--black);
   border-radius: 12px;
-  padding: 28px;
+  padding: 32px;
   margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.profile-form__head {
+  margin-bottom: 22px;
 }
 
 .profile-form__title {
-  font-size: 1.3rem;
-  margin: 0 0 20px 0;
+  font-size: 1.6rem;
+  font-family: var(--font-display);
+  margin: 0 0 6px 0;
+}
+
+.profile-form__sub {
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 .profile-form__grid {
@@ -2841,6 +2946,12 @@
 
   .profile-card__name-row {
     justify-content: center;
+  }
+
+  .profile-card__edit-btn {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 6px;
   }
 
   .profile-card__nim-badge {
@@ -3123,6 +3234,19 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--gray-700);
+}
+
+.review-modal__perfume-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: var(--gray-700);
+  margin-bottom: 16px;
 }
 
 @media (max-width: 680px) {
