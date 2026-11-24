@@ -9,7 +9,7 @@ import ImageWithFallback from '../components/common/ImageWithFallback.jsx'
 import { LoadingState, ErrorState, EmptyState } from '../components/common/StateBox.jsx'
 import { pickOfTheDay, sortPerfumes } from '../utils/helpers'
 
-const ITEMS_PER_PAGE = 9
+const ITEMS_PER_PAGE = 10
 
 const SORT_OPTIONS = [
   { value: 'name_asc', label: 'Nama A sampai Z' },
