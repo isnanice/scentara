@@ -135,7 +135,7 @@ export default function ProfileSection() {
                 </button>
               )}
               <span className="profile-photo-tip">
-                Mendukung file JPG, PNG, atau WebP (maks. 2MB). Jika dihapus, inisial nama Anda akan tampil otomatis.
+                Mendukung file JPG, PNG, atau WebP (maks. 2MB).
               </span>
             </div>
           </div>
