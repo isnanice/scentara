@@ -303,9 +303,9 @@
   left: 50%;
   bottom: calc(12px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
-  width: min(520px, calc(100% - 24px));
+  width: min(560px, calc(100% - 24px));
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 4px;
   padding: 6px;
   background: var(--black);
@@ -3631,4 +3631,447 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+/* ------------------------------------------------------------------
+   Compare Page (Perbandingan Dua Parfum Berdampingan)
+------------------------------------------------------------------ */
+.compare-page {
+  padding-bottom: 32px;
+}
+
+.compare-selector-card {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 16px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.compare-selector-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.compare-selector-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-500);
+}
+
+.compare-swap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 52px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--gray-50);
+  color: var(--black);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.compare-swap-btn:hover:not(:disabled) {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+.compare-swap-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.compare-results {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Ringkasan Perbandingan */
+.compare-summary {
+  padding: 20px 22px;
+  background: var(--gray-50);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.compare-summary__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.compare-summary__stat {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.compare-summary__icon {
+  margin-top: 2px;
+  color: var(--black);
+  flex-shrink: 0;
+}
+
+.compare-summary__label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--gray-500);
+}
+
+.compare-summary__value {
+  font-size: 0.98rem;
+  color: var(--black);
+}
+
+.compare-summary__shared-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.compare-summary__shared-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.compare-summary__shared-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.compare-summary__legend {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.compare-legend-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* Kartu Parfum Berdampingan */
+.compare-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.compare-perfume-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--white);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.compare-perfume-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--gray-100);
+  background: var(--gray-50);
+}
+
+.compare-perfume-card__slot {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-500);
+}
+
+.compare-cheaper-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.compare-perfume-card__media {
+  aspect-ratio: 4 / 3;
+  background: var(--gray-50);
+  overflow: hidden;
+}
+
+.compare-perfume-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.compare-perfume-card__body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.compare-perfume-card__brand {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray-500);
+  text-decoration: none;
+}
+
+.compare-perfume-card__brand:hover {
+  color: var(--black);
+  text-decoration: underline;
+}
+
+.compare-perfume-card__name {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--black);
+}
+
+.compare-perfume-card__meta {
+  font-size: 0.84rem;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+.compare-perfume-card__price {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--black);
+  margin: 4px 0 6px;
+}
+
+.compare-perfume-card__profiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+
+.compare-profile-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.76rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.compare-profile-chip.is-shared {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  font-weight: 600;
+}
+
+.compare-detail-link {
+  margin-top: auto;
+  width: fit-content;
+}
+
+/* Perbandingan Fragrance Notes Berdampingan */
+.compare-notes-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.compare-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.compare-layer {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.compare-layer__head {
+  padding: 14px 18px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.compare-layer--base .compare-layer__head {
+  background: var(--black);
+  color: var(--white);
+}
+
+.compare-layer--base .compare-layer__head span {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.compare-layer__head h3 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+}
+
+.compare-layer__head span {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+
+.compare-layer__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.compare-layer__col {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.compare-layer__col + .compare-layer__col {
+  border-left: 1px solid var(--line);
+}
+
+.compare-layer__col-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gray-500);
+}
+
+.compare-layer__empty {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  margin: 0;
+}
+
+.compare-layer__notes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.compare-note-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  color: var(--black);
+  font-size: 0.84rem;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.compare-note-pill:hover {
+  border-color: var(--black);
+  background: var(--gray-50);
+}
+
+.compare-note-pill--shared {
+  background: #ecfdf5;
+  border-color: #34d399;
+  color: #065f46;
+  font-weight: 600;
+}
+
+.compare-note-pill--shared:hover {
+  background: #d1fae5;
+  border-color: #059669;
+}
+
+.compare-note-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #065f46;
+  color: #ffffff;
+}
+
+@media (max-width: 680px) {
+  .compare-selector-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .compare-swap-btn {
+    width: 100%;
+    height: 38px;
+  }
+
+  .compare-cards-grid {
+    gap: 10px;
+  }
+
+  .compare-perfume-card__body {
+    padding: 12px;
+  }
+
+  .compare-perfume-card__name {
+    font-size: 1.15rem;
+  }
+
+  .compare-layer__col {
+    padding: 12px;
+  }
 }

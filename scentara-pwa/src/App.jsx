@@ -14,6 +14,7 @@ import ReviewsPage from './pages/ReviewsPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import BrandsPage from './pages/BrandsPage.jsx'
 import ScentProfilesPage from './pages/ScentProfilesPage.jsx'
+import ComparePage from './pages/ComparePage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import './App.css'
 
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/katalog" element={<CatalogPage />} />
+          <Route path="/bandingkan" element={<ComparePage />} />
           <Route path="/parfum/:id" element={<PerfumeDetailPage />} />
           <Route path="/brand" element={<BrandsPage />} />
           <Route path="/aroma" element={<ScentProfilesPage />} />

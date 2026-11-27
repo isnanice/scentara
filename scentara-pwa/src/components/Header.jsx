@@ -6,6 +6,7 @@ import { Search } from 'lucide-react'
 const NAV_ITEMS = [
   { to: '/', label: 'Home', end: true },
   { to: '/notes', label: 'Notes' },
+  { to: '/bandingkan', label: 'Compare' },
   { to: '/ulasan', label: 'Reviews' },
   { to: '/favorit', label: 'Favorites' },
   { to: '/profile', label: 'Profile' },

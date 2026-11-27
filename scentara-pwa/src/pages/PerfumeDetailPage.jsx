@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { ArrowLeft, ExternalLink, GitCompareArrows } from 'lucide-react'
 import { usePerfumeById } from '../hooks/usePerfumes'
 import FavoriteButton from '../components/common/FavoriteButton.jsx'
 import NotePyramid from '../components/perfume/NotePyramid.jsx'
@@ -58,6 +58,9 @@ export default function PerfumeDetailPage() {
 
               <div className="detail__actions">
                 <FavoriteButton id={perfume.id} name={perfume.name} className="fav-btn--wide" />
+                <Link to={`/bandingkan?p1=${perfume.id}`} className="btn btn--ghost">
+                  <GitCompareArrows size={16} /> Bandingkan
+                </Link>
                 {perfume.source_url && (
                   <a className="btn btn--ghost" href={perfume.source_url} target="_blank" rel="noreferrer">
                     Lihat di situs brand <ExternalLink size={16} />

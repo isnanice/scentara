@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useCallback } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, X, GitCompareArrows } from 'lucide-react'
 import { usePerfumes, usePerfumeById } from '../hooks/usePerfumes'
 import { useBrands, useScentProfiles } from '../hooks/useMeta'
 import PerfumeCard from '../components/perfume/PerfumeCard.jsx'
@@ -141,6 +141,9 @@ export default function HomePage() {
             </button>
             <Link to="/notes" className="btn btn--outline-light">
               Jelajahi notes
+            </Link>
+            <Link to="/bandingkan" className="btn btn--outline-light">
+              <GitCompareArrows size={16} /> Bandingkan parfum
             </Link>
           </div>
         </div>

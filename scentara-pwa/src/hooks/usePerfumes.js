@@ -18,6 +18,9 @@ export function usePerfumes(params = {}) {
 // Mengembalikan { perfume, loading, error, refetch }.
 // ---------------------------------------------------------------------------
 export function usePerfumeById(id) {
-  const { data, loading, error, refetch } = useAsync(() => perfumeService.getPerfumeById(id), id)
+  const { data, loading, error, refetch } = useAsync(
+    () => (id ? perfumeService.getPerfumeById(id) : Promise.resolve(null)),
+    id || 'empty-perfume-id',
+  )
   return { perfume: data, loading, error, refetch }
 }
